@@ -6,12 +6,13 @@ debugPlots = true;
 
 %% choose measurement folder
 
-folder = 'scattering_results_example';
+folder = '20200924_scattering_empty';
 
 
 %% load data
 
 run([folder '/parameters_S.m']);
+load([folder '/micCalib.mat']);
 
 Files = dir(fullfile(folder,'case*.mat'));
 Nmeas = length(Files);
@@ -48,12 +49,15 @@ Nf = length(fcut);
 
 %% compute FRF
 
+Hcal = [cal.g];
+ 
 for ncase = 1:Ncase
 	
 	% the last channel is always the loudspeaker signal
 	meas(ncase).H =  tfestimate(meas(ncase).timedata(:,end),meas(ncase).timedata(:,1:end-1),win,N_ov); % H = mic/loudspeaker
 	meas(ncase).coh =  mscohere(meas(ncase).timedata(:,end),meas(ncase).timedata(:,1:end-1),win,N_ov); % coherence mic / loudspeaker
 	
+    meas(ncase).H = meas(ncase).H.*Hcal;
 end
 
 

@@ -16,7 +16,7 @@ close all
 
 showPlots = true;
 
-micNb = 2; % microphone number. The reference is always mic1
+micNb = 3; % microphone number. The reference is always mic1
 
 % frequency range in which the calibration gain is fitted
 fmin = 100;
@@ -24,7 +24,7 @@ fmax = 6000;
 
 %% choose measurement folder
 
-folder = '1P_results_example';
+folder = 'Calibration 3mics';
 
 %% load data
 
@@ -134,7 +134,7 @@ end
 
 %% save calibration data
 
-if isfile([folder '/micCalib.mat'])
+if exist([folder '/micCalib.mat'], 'file') == 2
 	load([folder '/micCalib.mat'])
 end
 

@@ -4,7 +4,7 @@ close all
 
 %% parameters
 
-folder = '1P_results_example';
+folder = '20200924_reflection';
 
 d = 0.04; % sample thickness (grey foam)
 
@@ -35,7 +35,7 @@ xlabel('Frequency (Hz)')
 
 %% Computed reflection coefficient
 
-sigma = 20e3; % grey foam
+sigma = 25e3; % grey foam
 
 % standard frequency-dependent Delany Bazeley Miki
 Zc=rho0*c0* ( 1 + 5.50*(1e3*fcut/sigma).^(-0.632) - 1i*8.43*(1e3*fcut/sigma).^(-0.632) );
@@ -77,6 +77,7 @@ Rcalc = P(1,:);
 figure(1)
 plot(fcut,abs(Rcalc)); hold on
 legend('Measured','Computed')
+ylim([0,1.5])
 
 figure(2)
 plot(fcut,180/pi*unwrap(angle(Rcalc))); hold on

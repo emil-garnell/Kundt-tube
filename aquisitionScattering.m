@@ -4,16 +4,16 @@ clear
 %% parameters
 
 Fs=44100; % sampling frequency
-T=10; % measurement time in s
+T=4; % measurement time in s
 
 F_low = 20; % low frequency limit (Hz)
-F_high = 5000; % high frequency limit (Hz)
+F_high = 10000; % high frequency limit (Hz)
 
 time=linspace(0,T,Fs*T)'; % time for signal 
 N=length(time); % number of samples
 
-folder = '20190322_duct';
-savename='case4';
+folder = '20200924_scattering_empty';
+savename='case3';
 
 
 %% Build output signal
@@ -54,8 +54,7 @@ addAnalogInputChannel(s,device,'ai0','Voltage'); % mic1
 addAnalogInputChannel(s,device,'ai1','Voltage'); % mic2
 addAnalogInputChannel(s,device,'ai2','Voltage'); % mic3
 addAnalogInputChannel(s,device,'ai3','Voltage'); % mic4
-addAnalogInputChannel(s,device,'ai4','Voltage'); % loudspeaker
-
+addAnalogInputChannel(s,device,'ai6','Voltage'); % loudspeaker
 
 names = {'mic1','mic2','mic3','mic4','loudspeaker'};
 
@@ -70,7 +69,7 @@ N_chan=length(names);
 
 
 % Add output Channels to Session
-addAnalogOutputChannel(s,device,'ao0','Voltage');
+addAnalogOutputChannel(s,device,'ao1','Voltage');
 
 % Set session properties
 s.Rate = Fs; % sampling rate

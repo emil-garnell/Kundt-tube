@@ -4,12 +4,12 @@ clear
 %% parameters
 
 Fs=44100; % sampling frequency
-T=30; % measurement time in s
+T=4; % measurement time in s
 
-F_low = 10; % low frequency limit (Hz)
+F_low = 20; % low frequency limit (Hz)
 F_high = 10000; % high frequency limit (Hz)
 
-folder = '20200630_white_foam';
+folder = '20200924_reflection';
 savename='case_02_foam';
 % savename='calib_mic2_1';
 
@@ -48,25 +48,23 @@ s = daq.createSession('ni');
 % To get the list of devices connected to the
 % computer, type "daq.reset", and then "daq.getDevices"
 % Look at the derive list and choose right device.
-device='Dev8';
+device='Dev1';
 
 % Add Input Channels to Session
-% addAnalogInputChannel(s,device,'ai0','Voltage'); % mic1
-% addAnalogInputChannel(s,device,'ai1','Voltage'); % mic2
+addAnalogInputChannel(s,device,'ai0','Voltage'); % mic1
+addAnalogInputChannel(s,device,'ai1','Voltage'); % mic2
 addAnalogInputChannel(s,device,'ai2','Voltage'); % mic3
-addAnalogInputChannel(s,device,'ai3','Voltage'); % mic4
 addAnalogInputChannel(s,device,'ai6','Voltage'); % loudspeaker
 
 
-names = {'mic3','mic4','loudspeaker'};
+names = {'mic1','mic2','mic4','loudspeaker'};
 
 mic_gain = 1/(10e-3); % (Pa/V)
 
 scaling(1) = mic_gain; 
 scaling(2) = mic_gain; 
-scaling(3) = 1; 
-% scaling(4) = mic_gain; 
-% scaling(5) = 1; %(V/V)
+scaling(3) = mic_gain; 
+scaling(4) = 1; %(V/V)
 N_chan=length(names);
 
 

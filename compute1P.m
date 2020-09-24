@@ -6,7 +6,7 @@ debugPlots = 1;
 
 %% choose measurement folder
 
-folder = '1P_results_example';
+folder = '20200924_reflection';
 
 ncase = 2; % measurement number
 
@@ -104,6 +104,7 @@ figure(3)
 plot(fcut,abs(R));
 ylabel('mod R (-)')
 xlabel('Frequency (Hz)')
+ylim([0,1.2])
 
 figure(4)
 plot(fcut,180/pi*unwrap(angle(R)));
