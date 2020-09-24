@@ -8,7 +8,7 @@ debugPlots = 1;
 
 folder = '1P_results_example';
 
-ncase = 1; % measurement number
+ncase = 2; % measurement number
 
 %% load data
 

@@ -1,22 +1,22 @@
 clear
-close all
 
 
 %% parameters
 
 folder = '1P_results_example';
 
-d = 0.04; % sample thickness (grey foam)
-
-
-%% load results
-
 load([folder '/1PResult.mat']);
-run([folder '/parameters_1P.m']);
+
+
+%% constants
+
+rho0 = 1.204;
+c0 = 346;
+
+d = 0.04; % sample thickness (grey foam)
 
 w = 2*pi*fcut;
 Nf = length(fcut);
-
 
 %% plot measured R
 
@@ -28,26 +28,29 @@ xlabel('Frequency (Hz)')
 
 figure(2)
 clf
-plot(fcut,180/pi*unwrap(angle(R))+360); hold on
+plot(fcut,180/pi*unwrap(angle(R))); hold on
 ylabel('arg $R$ (deg)','Interpreter','latex')
 xlabel('Frequency (Hz)')
 
 
 %% Computed reflection coefficient
 
-sigma = 20e3; % grey foam
+sigma = 13e3; % grey foam
+% sigma = 5e3; % white foam
 
-% standard frequency-dependent Delany Bazeley Miki
 Zc=rho0*c0* ( 1 + 5.50*(1e3*fcut/sigma).^(-0.632) - 1i*8.43*(1e3*fcut/sigma).^(-0.632) );
 kc=w/c0.* ( 1 + 7.81*(1e3*fcut/sigma).^(-0.618) - 1i*11.41*(1e3*fcut/sigma).^(-0.618) );
 
-% frequency independant Delany Bazeley Miki
+% frequency independant delany bazeley
 % fref = 1000;
 % Zc=rho0*c0* ( 1 + 5.50*(1e3*fref/sigma).^(-0.632) - 1i*8.43*(1e3*fref/sigma).^(-0.632) );
 % kc=w/c0.* ( 1 + 7.81*(1e3*fref/sigma).^(-0.618) - 1i*11.41*(1e3*fref/sigma).^(-0.618) );
 
 Z0 = rho0*c0;
 k0 = w/c0;
+
+% Zc = Z0;
+% kc = k0;
 
 a11 = exp(-1i*k0*d);
 a12 = -( exp(-1i*kc*d) + exp(1i*kc*d) );
@@ -75,11 +78,11 @@ Rcalc = P(1,:);
 %% plot computed R
 
 figure(1)
-plot(fcut,abs(Rcalc)); hold on
+plot(fcut,abs(Rcalc),'Color',cols(4,:)); hold on
 legend('Measured','Computed')
 
 figure(2)
-plot(fcut,180/pi*unwrap(angle(Rcalc))); hold on
+plot(fcut,180/pi*unwrap(angle(Rcalc)),'Color',cols(4,:)); hold on
 legend('Measured','Computed')
 
 
